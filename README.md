@@ -114,6 +114,16 @@ Explore the technologies like documents, embeddings, and vector stores that enab
 
 Learn about agents, how they work, and how to build custom tools to enhance their capabilities.
 
+### 6. Text to SQL (also with UI through chainlit app)
+
+- `1_create_sql_agent.py`
+- `2_sql_datatabase_toolkit.py`
+- `3_sql_datatabase_toolkit_app.py`
+- `4_sql_toolkit_stream.py`
+- `5_sql_toolkit_stream_app.py`
+
+Learn how to create an agent that can query a database and generate SQL queries. See examples: [6_text_to_sql/text2sql](6_text_to_sql/text2sql)
+
 ## How to Use This Repository
 
 1. **Watch the Video:** Start by watching the LangChain Master Class for Beginners video on YouTube at 2X speed for a high-level overview.
