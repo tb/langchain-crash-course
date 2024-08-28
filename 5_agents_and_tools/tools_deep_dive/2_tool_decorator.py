@@ -1,12 +1,15 @@
 # Documentation: https://python.langchain.com/v0.1/docs/modules/tools/custom_tools/
 
 # Import necessary libraries
+from dotenv import load_dotenv
 from langchain import hub
 from langchain.agents import AgentExecutor, create_tool_calling_agent
 from langchain.pydantic_v1 import BaseModel, Field
 from langchain.tools import tool
 from langchain_openai import ChatOpenAI
 
+# Load environment variables from .env file
+load_dotenv()
 
 # Simple Tool with one parameter without args_schema
 # This is a basic tool that does not require an input schema.

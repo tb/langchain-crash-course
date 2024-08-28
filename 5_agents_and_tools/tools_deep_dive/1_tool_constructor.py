@@ -1,28 +1,34 @@
 # Docs: https://python.langchain.com/v0.1/docs/modules/tools/custom_tools/
 
 # Import necessary libraries
+from dotenv import load_dotenv
 from langchain import hub
 from langchain.agents import AgentExecutor, create_tool_calling_agent
 from langchain.pydantic_v1 import BaseModel, Field
 from langchain_core.tools import StructuredTool, Tool
 from langchain_openai import ChatOpenAI
 
+# Load environment variables from .env file
+load_dotenv()
 
 # Functions for the tools
 def greet_user(name: str) -> str:
     """Greets the user by name."""
     return f"Hello, {name}!"
 
+class GreetsUserArgs(BaseModel):
+    name: str = Field(description="Name")
 
 def reverse_string(text: str) -> str:
     """Reverses the given string."""
     return text[::-1]
 
+class ReverseStringArgs(BaseModel):
+    text: str = Field(description="String to reverse")
 
 def concatenate_strings(a: str, b: str) -> str:
     """Concatenates two strings."""
     return a + b
-
 
 # Pydantic model for tool arguments
 class ConcatenateStringsArgs(BaseModel):
@@ -34,16 +40,18 @@ class ConcatenateStringsArgs(BaseModel):
 tools = [
     # Use Tool for simpler functions with a single input parameter.
     # This is straightforward and doesn't require an input schema.
-    Tool(
+    StructuredTool.from_function(
         name="GreetUser",  # Name of the tool
         func=greet_user,  # Function to execute
         description="Greets the user by name.",  # Description of the tool
+        args_schema=GreetsUserArgs,  # Schema defining the tool's input arguments
     ),
     # Use Tool for another simple function with a single input parameter.
-    Tool(
+    StructuredTool.from_function(
         name="ReverseString",  # Name of the tool
         func=reverse_string,  # Function to execute
         description="Reverses the given string.",  # Description of the tool
+        args_schema=ReverseStringArgs,  # Schema defining the tool's input arguments
     ),
     # Use StructuredTool for more complex functions that require multiple input parameters.
     # StructuredTool allows us to define an input schema using Pydantic, ensuring proper validation and description.
